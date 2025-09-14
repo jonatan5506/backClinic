@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { useContainer } from 'class-validator';
@@ -25,6 +26,6 @@ async function bootstrap() {
   app.useGlobalFilters(new FiltroExcecaoGlobal());
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  await app.listen(8000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();

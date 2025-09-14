@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const class_validator_1 = require("class-validator");
@@ -17,7 +18,7 @@ async function bootstrap() {
     }));
     app.useGlobalFilters(new filtro_excecao_global_1.FiltroExcecaoGlobal());
     (0, class_validator_1.useContainer)(app.select(app_module_1.AppModule), { fallbackOnErrors: true });
-    await app.listen(8000);
+    await app.listen(process.env.PORT);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
