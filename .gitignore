@@ -1,0 +1,6 @@
+# Ignorar node_modules
+front/node_modules/
+back/node_modules/
+
+# Ignorar build do backend
+back/dist/

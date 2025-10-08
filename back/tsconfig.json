@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // CORREÇÃO: Mude para uma configuração moderna de módulo (ESM)
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    
+    // Configurações que você já tinha e são importantes para a compatibilidade:
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    
+    // Configurações de Target e Output
+    "target": "ES2022",
+    "outDir": "./dist",
+
+    // Outras configurações (mantidas do seu exemplo)
+    "resolvePackageJsonExports": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}
