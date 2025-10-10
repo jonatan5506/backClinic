@@ -377,9 +377,13 @@ usermodule
 
 postgresql://postgres:postgres@natandevdb.duckdns.org:5432/db_task
 
+OBS:
+* Comando para verificar criação de db: docker exec -it postgres_db psql -U postgres -l
+
 
 //TASKS
 - rota signUp ok
+- rota signIn ok
 
 //TODO
-- verificar rota signIn
+- 

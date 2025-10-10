@@ -12,7 +12,7 @@ export class AuthController {
   //testar
   @Public()
   @HttpCode(HttpStatus.OK)
-  @Post('login')
+  @Post('signin')
   async signIn(
     @Body('email') email: string,
     @Body('senha') senha: string,

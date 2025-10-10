@@ -6,14 +6,12 @@ export class SeedAdminUser1696355334000 implements MigrationInterface {
     const hashedPassword = await bcrypt.hash('admin', 10);
 
     await queryRunner.query(
-      `INSERT INTO "user" (username, password) VALUES ($1, $2)`,
-      ['admin', hashedPassword],
+      `INSERT INTO "usuario" (nome, senha, email) VALUES ($1, $2, $3)`,
+      ['admin', hashedPassword, 'admin@email.com'],
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DELETE FROM "user" WHERE username = $1`, [
-      'admin',
-    ]);
+    await queryRunner.query(`DELETE FROM "usuario" WHERE nome = $1`, ['admin']);
   }
 }
