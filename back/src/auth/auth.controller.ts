@@ -4,20 +4,17 @@ import { AuthService } from './auth.service';
 import { AuthResponseDto } from './dto/auth.response.dto';
 import { Public } from '../decorators/public.decorator';
 import { CreateUsuarioDto } from '../usuario/dto/create-usuario.dto';
+import { AuthSignInDto } from './dto/auth.signIn.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  //testar
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('signin')
-  async signIn(
-    @Body('email') email: string,
-    @Body('senha') senha: string,
-  ): Promise<AuthResponseDto> {
-    return await this.authService.signIn(email, senha);
+  async signIn(@Body() loginDto: AuthSignInDto): Promise<AuthResponseDto> {
+    return this.authService.signIn(loginDto.email, loginDto.password);
   }
 
   @Public()

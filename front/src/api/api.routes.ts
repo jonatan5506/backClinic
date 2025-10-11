@@ -2,7 +2,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL.replace(/\/$/, '');
 
 export const API_ROUTES = {
   AUTH: {
-    LOGIN: `${BASE_URL}/auth/login`,
+    SIGNIN: `${BASE_URL}/auth/signin`,
     SIGNUP: `${BASE_URL}/auth/signup`,
   },
   USUARIO: {

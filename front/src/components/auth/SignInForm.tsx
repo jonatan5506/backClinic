@@ -1,14 +1,61 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { EyeCloseIcon, EyeIcon } from "../../icons";
 import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import Checkbox from "../form/input/Checkbox";
-import Button from "../ui/button/Button";
+import { API_ROUTES } from "../../api/api.routes";
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+    // Adicionar state para os dados do formulário
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+    // Função para atualizar o state quando os inputs mudarem
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Função que envia o form para o backend
+  const navigate = useNavigate();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  if (!formData.email || !formData.password || !isChecked) {
+    return alert("Preencha todos os campos e aceite os termos.");
+  }
+
+  try {
+    // CORREÇÃO: usar a rota de SignIn, não SignUp
+    const res = await fetch(API_ROUTES.AUTH.SIGNIN, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      //credentials: 'include', //Receber cookie
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) return alert(`Erro: ${data.message || "Ocorreu um erro."}`);
+
+    alert("Login realizado com sucesso!");
+    navigate("/"); 
+  } catch (err) {
+    console.error("Erro de conexão:", err);
+    alert("Erro de conexão. Tente novamente.");
+  }
+};
+
+
   return (
     <div className="flex flex-col flex-1">
       <div className="w-full max-w-md pt-10 mx-auto">
@@ -83,57 +130,71 @@ export default function SignInForm() {
                 </span>
               </div>
             </div>
+
             {/* <!-- Formulário --> */}
-            <form>
-              <div className="space-y-6">
-                <div>
-                  <Label>
-                    Email <span className="text-error-500">*</span>{" "}
-                  </Label>
-                  <Input placeholder="info@gmail.com" />
-                </div>
-                <div>
-                  <Label>
-                    Password <span className="text-error-500">*</span>{" "}
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Informe sua senha"
-                    />
-                    <span
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
-                    >
-                      {showPassword ? (
-                        <EyeIcon className="fill-gray-500 dark:fill-gray-400 size-5" />
-                      ) : (
-                        <EyeCloseIcon className="fill-gray-500 dark:fill-gray-400 size-5" />
-                      )}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Checkbox checked={isChecked} onChange={setIsChecked} />
-                    <span className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400">
-                      Permanecer logado
-                    </span>
-                  </div>
-                  <Link
-                    to="/reset-password"
-                    className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
-                  >
-                    Esqueceu a senha?
-                  </Link>
-                </div>
-                <div>
-                  <Button className="w-full" size="sm">
-                    Sign in
-                  </Button>
-                </div>
-              </div>
-            </form>
+            <form onSubmit={handleSubmit}>
+  <div className="space-y-6">
+    <div>
+      <Label>
+        Email <span className="text-error-500">*</span>{" "}
+      </Label>
+      <Input 
+        type="email"
+        id="email"
+        name="email"
+        placeholder="info@gmail.com"
+        value={formData.email}
+        onChange={handleChange}
+      />
+    </div>
+    <div>
+      <Label>
+        Password <span className="text-error-500">*</span>{" "}
+      </Label>
+      <div className="relative">
+        <Input
+          type={showPassword ? "text" : "password"}
+          placeholder="Informe sua senha"
+          name="password" 
+          value={formData.password}
+          onChange={handleChange} 
+        />
+        <span
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
+        >
+          {showPassword ? (
+            <EyeIcon className="fill-gray-500 dark:fill-gray-400 size-5" />
+          ) : (
+            <EyeCloseIcon className="fill-gray-500 dark:fill-gray-400 size-5" />
+          )}
+        </span>
+      </div>
+    </div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <Checkbox checked={isChecked} onChange={(checked) => setIsChecked(checked)} />
+        <span className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400">
+          Permanecer logado
+        </span>
+      </div>
+      <Link
+        to="/reset-password"
+        className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
+      >
+        Esqueceu a senha?
+      </Link>
+    </div>
+    <div>
+      <button 
+        type="submit"
+        className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600"
+      >
+        Sign in
+      </button>
+    </div>
+  </div>
+</form>
 
             <div className="mt-5">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">

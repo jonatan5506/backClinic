@@ -21,11 +21,11 @@ export class AuthService {
       this.configService.get<number>('JWT_EXPIRATION_TIME') ?? 7200;
   }
 
-  // ===== LOGIN =====
-  async signIn(email: string, senha: string): Promise<AuthResponseDto> {
+  // ===== SignIn =====
+  async signIn(email: string, password: string): Promise<AuthResponseDto> {
     const usuario = await this.findByEmail(email);
 
-    if (!usuario || !compareSync(senha, usuario.senha)) {
+    if (!usuario || !compareSync(password, usuario.senha)) {
       throw new UnauthorizedException('Email ou senha inválidos');
     }
 

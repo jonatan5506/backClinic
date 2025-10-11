@@ -6,7 +6,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //Para usar o Class-transformer e Class-validator
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors();
+  app.enableCors({
+    //origin: 'http://localhost:3000', //URL front
+    //credentials: true, // enviar cookie
+  });
   await app.listen(process.env.PORT ?? 8000);
 }
 

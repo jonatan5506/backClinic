@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt';
 
 export class SeedAdminUser1696355334000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const hashedPassword = await bcrypt.hash('admin', 10);
+    const hashedPassword = await bcrypt.hash('Hap@2025', 10);
 
     await queryRunner.query(
       `INSERT INTO "usuario" (nome, senha, email) VALUES ($1, $2, $3)`,
