@@ -11,6 +11,7 @@ import { UsuarioEntity } from '../usuario/entities/usuario.entity';
 @Injectable()
 export class AuthService {
   private readonly jwtExpirationInSeconds: number;
+  signInWithGoogle: any;
 
   constructor(
     private readonly usuarioService: UsuarioService,

@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsuarioModule } from '../usuario/usuario.module';
+import { GoogleStrategy } from './google.strategy';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { UsuarioModule } from '../usuario/usuario.module';
     UsuarioModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, GoogleStrategy],
 })
 export class AuthModule {}

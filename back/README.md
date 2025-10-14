@@ -387,3 +387,24 @@ OBS:
 
 //TODO
 - implementar login com google
+  - npm install @nestjs/passport passport passport-google-oauth20
+  - npm install --save-dev @types/passport-google-oauth20
+
+  - login com Google / verificar credenciais .env
+    # tem que adicionar a URL do front "http://localhost:5173/" na criação das credenciais
+    e a Url: http://localhost:8000/auth/google/callback na credencial url de redirecionameto
+
+  deu esse erro no back:
+
+   ERROR [ExceptionsHandler] TypeError: this.authService.signInWithGoogle is not a function
+    at AuthController.googleAuthRedirect (/home/jhon/Desktop/ALURA/argus/Acesi/backClinic/back/src/auth/auth.controller.ts:57:42)
+    at /home/jhon/Desktop/ALURA/argus/Acesi/backClinic/back/node_modules/@nestjs/core/router/router-execution-context.js:38:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /home/jhon/Desktop/ALURA/argus/Acesi/backClinic/back/node_modules/@nestjs/core/router/router-execution-context.js:46:28
+    at async /home/jhon/Desktop/ALURA/argus/Acesi/backClinic/back/node_modules/@nestjs/core/router/router-proxy.js:9:17
+^C
+
+
+  /* Rode o NestJS: npm run start:dev
+  Acesse: http://localhost:3000/auth/google
+  O Google pedirá login e, após autenticar, você será redirecionado para http://localhost:3000/auth/google/callback com os dados do usuário. */

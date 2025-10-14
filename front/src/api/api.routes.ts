@@ -4,6 +4,7 @@ export const API_ROUTES = {
   AUTH: {
     SIGNIN: `${BASE_URL}/auth/signin`,
     SIGNUP: `${BASE_URL}/auth/signup`,
+    GOOGLE: `${BASE_URL}/auth/google`,
   },
   USUARIO: {
     LIST: `${BASE_URL}/usuario`,
